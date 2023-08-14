@@ -33,6 +33,12 @@
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 
+// externs
+uint8_t usbrcvdflag;
+uint8_t usbcdcdata[UARTBUFLEN];
+uint16_t usbcdcidx;
+
+
 /* USER CODE END PV */
 
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY

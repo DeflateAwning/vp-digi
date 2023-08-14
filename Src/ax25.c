@@ -21,6 +21,10 @@ along with VP-Digi.  If not, see <http://www.gnu.org/licenses/>.
 #include "common.h"
 #include "drivers/systick.h"
 
+// externs
+Ax25 ax25;
+Ax25_config ax25Cfg;
+
 enum TxStage
 {
 	TX_STAGE_IDLE,

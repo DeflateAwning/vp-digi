@@ -24,6 +24,10 @@ along with VP-Digi.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "digipeater.h"
 
+// externs
+Uart uart1;
+Uart uart2;
+
 uint8_t USBmode = MODE_KISS;
 uint8_t USBrcvd = DATA_NOTHING;
 uint8_t USBint = 0; /**< Flaga "przerwania" USB dla obslugi w petli glownej */

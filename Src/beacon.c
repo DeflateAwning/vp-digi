@@ -23,6 +23,9 @@ along with VP-Digi.  If not, see <http://www.gnu.org/licenses/>.
 #include "terminal.h"
 #include "drivers/systick.h"
 
+// extern
+Beacon beacon[8];
+
 uint32_t beaconDelay[8] = {0};
 
 

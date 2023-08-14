@@ -53,6 +53,8 @@ along with VP-Digi.  If not, see <http://www.gnu.org/licenses/>.
 #define DCD_ON (GPIOC->BSRR = GPIO_BSRR_BR13)
 #define DCD_OFF (GPIOC->BSRR = GPIO_BSRR_BS13)
 
+// externs
+Afsk_config afskCfg;
 
 struct ModState
 {

@@ -24,6 +24,9 @@ along with VP-Digi.  If not, see <http://www.gnu.org/licenses/>.
 #include <math.h>
 #include "drivers/systick.h"
 
+// extern
+Digi digi;
+
 #define VISCOUS_DATA_LEN (6) //max frames in viscous-delay buffer
 uint8_t viscousBuf[VISCOUS_DATA_LEN][FRAMELEN]; //viscous-delay frames buffer
 uint32_t viscousData[VISCOUS_DATA_LEN][2]; //viscous-delay hash and timestamp buffer

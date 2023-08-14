@@ -53,11 +53,12 @@ typedef struct
 	uint32_t kissTimer;
 } Uart;
 
-Uart uart1, uart2;
+extern Uart uart1;
+extern Uart uart2;
 
-Uart_mode USBmode;
-Uart_data_type USBrcvd;
-uint8_t USBint; //USB "interrupt" flag
+extern Uart_mode USBmode;
+extern Uart_data_type USBrcvd;
+extern uint8_t USBint; //USB "interrupt" flag
 
 
 /**

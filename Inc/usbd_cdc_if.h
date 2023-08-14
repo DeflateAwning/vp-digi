@@ -91,9 +91,9 @@
 extern USBD_CDC_ItfTypeDef USBD_Interface_fops_FS;
 
 /* USER CODE BEGIN EXPORTED_VARIABLES */
-uint8_t usbrcvdflag;
-uint8_t usbcdcdata[UARTBUFLEN];
-uint16_t usbcdcidx;
+extern uint8_t usbrcvdflag;
+extern uint8_t usbcdcdata[UARTBUFLEN];
+extern uint16_t usbcdcidx;
 /* USER CODE END EXPORTED_VARIABLES */
 
 /**
