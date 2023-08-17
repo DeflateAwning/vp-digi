@@ -128,6 +128,7 @@ static volatile void uart_handleInterrupt(Uart *port)
 	}
 }
 
+#if 0
 void USART1_IRQHandler(void) __attribute__ ((interrupt));
 void USART1_IRQHandler(void)
 {
@@ -139,7 +140,7 @@ void USART2_IRQHandler(void)
 {
 	uart_handleInterrupt(&uart2);
 }
-
+#endif
 
 
 
@@ -278,7 +279,7 @@ void uart_init(Uart *port, USART_TypeDef *uart, uint32_t baud)
 
 void uart_config(Uart *port, uint8_t state)
 {
-#if 0 // disabled because it's done with the IOC-generated code
+#if 0
 	if(port->port == USART1)
 	{
 		RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
@@ -326,9 +327,7 @@ void uart_config(Uart *port, uint8_t state)
 
 		port->enabled = state > 0;
 	}
-
 #endif
-
 }
 
 

@@ -213,8 +213,11 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 
-  
+  // no idea what this does, but it makes HAL_Delay(250) take 1000ms
+#if SET_THIS_DEFINE_MACRO_TO_ENABLE_SYSTICK_AND_BREAK_THE_PROJECT_LMAO // a simple `#if 0` doesn't do my hours of debugging justice
   SysTick_init();
+#endif
+  // TODO: confirm this isn't important
 
 #ifdef FEATURE_USB_SUPPORT
   //force usb re-enumeration after reset
@@ -226,7 +229,7 @@ int main(void)
   while(t > ticks);;
   GPIOA->CRH &= ~GPIO_CRH_MODE12;
   GPIOA->CRH |= GPIO_CRH_CNF12_0;
-  
+
   #endif /* FEATURE_USB_SUPPORT */
 
   /* USER CODE END SysInit */
@@ -242,7 +245,7 @@ int main(void)
   MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 
-  
+
 
 	Wdog_init(); //initialize watchdog
 
@@ -257,9 +260,12 @@ int main(void)
 	ax25Cfg.txTailLength = 30;
 	digi.dupeTime = 30;
 
+#if 0
 	Config_read();
 
 	Ax25_init();
+#endif
+
 
 	uart_init(&uart1, USART1, uart1.baudrate);
 	uart_init(&uart2, USART2, uart2.baudrate);
@@ -269,12 +275,20 @@ int main(void)
 	sprintf(msg1, "Booting vp-digi on L432.\n");
 	HAL_UART_Transmit(&huart2, msg1, strlen(msg1), 100);
 
-	uart_config(&uart1, 1);
-	uart_config(&uart2, 1);
+	uart_config(&uart1, 1); // disabled within
+	uart_config(&uart2, 1); // disabled within
 
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET); // FIXME remove this section
+	HAL_Delay(1000);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET); // FIXME
+	HAL_Delay(1000);
+
+
+
+#if 0
 	Afsk_init();
 	Beacon_init();
-
+#endif
 
 	autoResetTimer = autoReset * 360000;
 
@@ -283,7 +297,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  static uint32_t usbKissTimer = 0;
+  // static uint32_t usbKissTimer = 0;
   uint16_t main_loop_counter = 0;
 
   while (1)
@@ -297,14 +311,25 @@ int main(void)
 	  HAL_Delay(250);
 	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET); // flash LED
 	  HAL_Delay(250);
+
 	  // added: simple print UART
 	  	uint8_t msg1[255];
 	  	sprintf(msg1, "Running vp-digi loop on L432, #%d\n", main_loop_counter++);
 	  	HAL_UART_Transmit(&huart2, msg1, strlen(msg1), 100);
 
 
-    	  Wdog_reset();
 
+		  uint8_t rxBuffer[1];
+		    HAL_UART_Receive(&huart2, rxBuffer, 1, HAL_MAX_DELAY);
+		    HAL_UART_Transmit(&huart2, rxBuffer, 1, HAL_MAX_DELAY);
+		    rxBuffer[0] = '!';
+		    HAL_UART_Transmit(&huart2, rxBuffer, 1, HAL_MAX_DELAY); // print back another exclam for good measure
+
+
+
+    	  Wdog_reset(); // core crashes if you don't call this function; executes in no time
+
+#if 0
 	  if(ax25.frameReceived)
 		  handleFrame();
 
@@ -314,6 +339,7 @@ int main(void)
 	  Ax25_transmitBuffer(); //transmit buffer (will return if nothing to be transmitted)
 
 	  Ax25_transmitCheck(); //check for pending transmission request
+#endif
 
 #ifdef FEATURE_USB_SUPPORT
 	  if(USBint) //USB "interrupt"
@@ -353,7 +379,7 @@ int main(void)
 		  memset(usbcdcdata, 0, UARTBUFLEN);
 	  }
 #endif /* FEATURE_USB_SUPPORT */
-
+#if 0
 	  if(uart1.rxflag != DATA_NOTHING)
 	  {
 		  term_parse(uart1.bufrx, uart1.bufrxidx, TERM_UART1, uart1.rxflag, uart1.mode);
@@ -369,12 +395,14 @@ int main(void)
 		  memset(uart2.bufrx, 0, UARTBUFLEN);
 	  }
 
+#endif
+#if 0
 	  Beacon_check(); //check beacons
 
 
 	  if(((autoResetTimer != 0) && (ticks > autoResetTimer)) || (ticks > 4294960000))
 		  NVIC_SystemReset();
-
+#endif
 
   }
   /* USER CODE END 3 */
@@ -402,7 +430,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = 0;
-  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_6;
+  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_11;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -418,7 +446,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     Error_Handler();
   }
