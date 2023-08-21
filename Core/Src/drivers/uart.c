@@ -128,7 +128,7 @@ static volatile void uart_handleInterrupt(Uart *port)
 	}
 }
 
-#if 0
+
 void USART1_IRQHandler(void) __attribute__ ((interrupt));
 void USART1_IRQHandler(void)
 {
@@ -138,9 +138,10 @@ void USART1_IRQHandler(void)
 void USART2_IRQHandler(void) __attribute__ ((interrupt));
 void USART2_IRQHandler(void)
 {
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 	uart_handleInterrupt(&uart2);
 }
-#endif
+
 
 
 

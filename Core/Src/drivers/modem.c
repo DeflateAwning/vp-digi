@@ -209,7 +209,7 @@ static void afsk_dcd(uint8_t state)
 	}
 }
 
-
+#if 0
 /**
  * @brief ISR for demodulator
  * Called at 9600 Hz by DMA
@@ -243,7 +243,7 @@ void DMA1_Channel1_IRQHandler(void)
 		}
 	}
 }
-
+#endif
 
 
 

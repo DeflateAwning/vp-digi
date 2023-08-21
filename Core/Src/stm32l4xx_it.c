@@ -199,7 +199,7 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32l4xx.s).                    */
 /******************************************************************************/
-#if 0
+
 /**
   * @brief This function handles DMA1 channel1 global interrupt.
   */
@@ -213,7 +213,7 @@ void DMA1_Channel1_IRQHandler(void)
 
   /* USER CODE END DMA1_Channel1_IRQn 1 */
 }
-
+#if 0
 /**
   * @brief This function handles USART1 global interrupt.
   */
@@ -227,7 +227,6 @@ void USART1_IRQHandler(void)
 
   /* USER CODE END USART1_IRQn 1 */
 }
-#endif
 
 /**
   * @brief This function handles USART2 global interrupt.
@@ -236,7 +235,8 @@ void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
 	  // debug: blink an LED
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET); // FIXME
+	 // FIXME
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 
 
 
@@ -247,7 +247,7 @@ void USART2_IRQHandler(void)
 
   /* USER CODE END USART2_IRQn 1 */
 }
-
+#endif
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */

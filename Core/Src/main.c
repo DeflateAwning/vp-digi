@@ -266,9 +266,10 @@ int main(void)
 	Ax25_init();
 #endif
 
-
+#if 0
 	uart_init(&uart1, USART1, uart1.baudrate);
 	uart_init(&uart2, USART2, uart2.baudrate);
+#endif
 
 	// added: simple print UART
 	uint8_t msg1[255];
@@ -291,6 +292,12 @@ int main(void)
 #endif
 
 	autoResetTimer = autoReset * 360000;
+
+
+	// force enable interupts (from the uart.c file)
+	// USART2->CR1 |= USART_CR1_RXNEIE | USART_CR1_TE | USART_CR1_RE | USART_CR1_UE | USART_CR1_IDLEIE;
+	NVIC_SetPriority(USART2_IRQn, 2);
+	NVIC_EnableIRQ(USART2_IRQn);
 
 
   /* USER CODE END 2 */
@@ -318,13 +325,13 @@ int main(void)
 	  	HAL_UART_Transmit(&huart2, msg1, strlen(msg1), 100);
 
 
-
+#if 0
 		  uint8_t rxBuffer[1];
 		    HAL_UART_Receive(&huart2, rxBuffer, 1, HAL_MAX_DELAY);
 		    HAL_UART_Transmit(&huart2, rxBuffer, 1, HAL_MAX_DELAY);
 		    rxBuffer[0] = '!';
 		    HAL_UART_Transmit(&huart2, rxBuffer, 1, HAL_MAX_DELAY); // print back another exclam for good measure
-
+#endif
 
 
     	  Wdog_reset(); // core crashes if you don't call this function; executes in no time
@@ -387,6 +394,7 @@ int main(void)
 		  uart1.bufrxidx = 0;
 		  memset(uart1.bufrx, 0, UARTBUFLEN);
 	  }
+
 	  if(uart2.rxflag != DATA_NOTHING)
 	  {
 		  term_parse(uart2.bufrx, uart2.bufrxidx, TERM_UART2, uart2.rxflag, uart2.mode);
@@ -394,8 +402,26 @@ int main(void)
 		  uart2.bufrxidx = 0;
 		  memset(uart2.bufrx, 0, UARTBUFLEN);
 	  }
-
 #endif
+
+
+//	  HAL_UART_StateTypeDef uart2_rx_status = HAL_UART_Receive(uart2.port, uart2.bufrx, UARTBUFLEN, 100);
+//
+//  // sprintf the uart2_rx_status
+//  uint8_t msg2[255];
+//  sprintf(msg2, "UART2 RX status: %02X\n", uart2_rx_status);
+//  HAL_UART_Transmit(&huart2, msg2, 250, 100);
+//
+//  // FIXME: don't hard code these; do it the same way as the interrupt
+  uart2.rxflag = DATA_TERM;
+  uart2.mode = MODE_MONITOR;
+
+  // call term_parse
+	  uint8_t rx_buf_test_version[] = "help";
+  term_parse(rx_buf_test_version, strlen(rx_buf_test_version), TERM_UART2, uart2.rxflag, uart2.mode);
+
+  // FIXME: first, start here, and come up with a way to test this better
+
 #if 0
 	  Beacon_check(); //check beacons
 
