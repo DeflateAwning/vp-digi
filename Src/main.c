@@ -256,10 +256,16 @@ int main(void)
 	Ax25_init();
 
 	uart_init(&uart1, USART1, uart1.baudrate);
+
+#ifdef VP_DIGI_ENABLE_UART_2
 	uart_init(&uart2, USART2, uart2.baudrate);
+#endif /* #ifdef VP_DIGI_ENABLE_UART_2 */
 
 	uart_config(&uart1, 1);
+
+#ifdef VP_DIGI_ENABLE_UART_2
 	uart_config(&uart2, 1);
+#endif /* #ifdef VP_DIGI_ENABLE_UART_2 */
 
 	Afsk_init();
 	Beacon_init();
