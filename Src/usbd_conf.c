@@ -19,6 +19,8 @@
   */
 /* USER CODE END Header */
 
+#ifdef VP_DIGI_ENABLE_USB
+
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx.h"
 #include "stm32f1xx_hal.h"
@@ -661,3 +663,5 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+#endif /* #ifdef VP_DIGI_ENABLE_USB */

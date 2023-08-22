@@ -18,6 +18,7 @@
   ******************************************************************************
   */
 /* USER CODE END Header */
+#ifdef VP_DIGI_ENABLE_USB
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc_if.h"
@@ -348,3 +349,5 @@ uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len)
   */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+#endif /* #ifdef VP_DIGI_ENABLE_USB */

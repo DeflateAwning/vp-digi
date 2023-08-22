@@ -18,6 +18,9 @@
   ******************************************************************************
   */
 /* USER CODE END Header */
+
+#ifdef VP_DIGI_ENABLE_USB
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USBD_DESC__C__
 #define __USBD_DESC__C__
@@ -143,3 +146,5 @@ extern USBD_DescriptorsTypeDef FS_Desc;
 #endif /* __USBD_DESC__C__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+#endif /* #ifdef VP_DIGI_ENABLE_USB */

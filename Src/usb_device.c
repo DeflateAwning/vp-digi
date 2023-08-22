@@ -20,6 +20,7 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
+#ifdef VP_DIGI_ENABLE_USB
 
 #include "usb_device.h"
 #include "usbd_core.h"
@@ -100,3 +101,4 @@ void MX_USB_DEVICE_Init(void)
   */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+#endif /* #ifdef VP_DIGI_ENABLE_USB */

@@ -21,6 +21,7 @@ along with VP-Digi.  If not, see <http://www.gnu.org/licenses/>.
 #include "ax25.h"
 #include "common.h"
 #include <string.h>
+#include <stdlib.h> // for abs()
 
 #include "digipeater.h"
 
@@ -157,9 +158,11 @@ void uart_transmitStart(Uart *port)
 
 void uartUSB_sendByte(uint8_t data)
 {
+#ifdef VP_DIGI_ENABLE_USB
 	uint8_t a[1];
 	a[0] = data;
 	CDC_Transmit_FS(a, 1);
+#endif
 }
 
 
@@ -213,7 +216,7 @@ void uart_sendNumber(Uart *port, int32_t n)
 
 void uartUSB_sendString(uint8_t *data, uint16_t len)
 {
-
+#ifdef VP_DIGI_ENABLE_USB
 	if(len == 0)
 	{
 		len = strlen((char*)data);
@@ -237,6 +240,7 @@ void uartUSB_sendString(uint8_t *data, uint16_t len)
 			break;
 		}
 	}
+#endif
 }
 
 

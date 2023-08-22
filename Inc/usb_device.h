@@ -19,6 +19,8 @@
   */
 /* USER CODE END Header */
 
+#ifdef VP_DIGI_ENABLE_USB
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USB_DEVICE__H__
 #define __USB_DEVICE__H__
@@ -103,3 +105,5 @@ void MX_USB_DEVICE_Init(void);
 #endif /* __USB_DEVICE__H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+#endif /* #ifdef VP_DIGI_ENABLE_USB */

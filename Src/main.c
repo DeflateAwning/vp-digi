@@ -53,6 +53,8 @@ along with VP-Digi.  If not, see <http://www.gnu.org/licenses/>.
 #include "terminal.h"
 #include "config.h"
 
+#include <string.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -228,7 +230,10 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+
+#ifdef VP_DIGI_ENABLE_USB
   MX_USB_DEVICE_Init();
+#endif
   /* USER CODE BEGIN 2 */
 
 
@@ -266,8 +271,10 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+#ifdef VP_DIGI_ENABLE_USB
 	static uint32_t usbKissTimer = 0;
+#endif
+
   while (1)
   {
     /* USER CODE END WHILE */
@@ -285,6 +292,7 @@ int main(void)
 
 	  Ax25_transmitCheck(); //check for pending transmission request
 
+#ifdef VP_DIGI_ENABLE_USB
 	  if(USBint) //USB "interrupt"
 	  {
 		  USBint = 0; //clear
@@ -321,6 +329,8 @@ int main(void)
 		  usbcdcidx = 0;
 		  memset(usbcdcdata, 0, UARTBUFLEN);
 	  }
+#endif /* #ifdef VP_DIGI_ENABLE_USB */
+
 	  if(uart1.rxflag != DATA_NOTHING)
 	  {
 		  term_parse(uart1.bufrx, uart1.bufrxidx, TERM_UART1, uart1.rxflag, uart1.mode);

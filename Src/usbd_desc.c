@@ -19,6 +19,8 @@
   */
 /* USER CODE END Header */
 
+#ifdef VP_DIGI_ENABLE_USB
+
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
 #include "usbd_desc.h"
@@ -392,3 +394,5 @@ static void IntToUnicode(uint32_t value, uint8_t * pbuf, uint8_t len)
   */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+#endif /* #ifdef VP_DIGI_ENABLE_USB */

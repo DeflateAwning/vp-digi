@@ -198,6 +198,7 @@ ticks++;
 /* please refer to the startup file (startup_stm32f1xx.s).                    */
 /******************************************************************************/
 
+#ifdef VP_DIGI_ENABLE_USB
 /**
   * @brief This function handles USB low priority or CAN RX0 interrupts.
   */
@@ -211,6 +212,7 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
 
   /* USER CODE END USB_LP_CAN1_RX0_IRQn 1 */
 }
+#endif /* #ifdef VP_DIGI_ENABLE_USB */
 
 /* USER CODE BEGIN 1 */
 

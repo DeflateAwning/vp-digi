@@ -19,6 +19,8 @@
   */
 /* USER CODE END Header */
 
+#ifdef VP_DIGI_ENABLE_USB
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USBD_CONF__H__
 #define __USBD_CONF__H__
@@ -175,3 +177,5 @@ void USBD_static_free(void *p);
 #endif /* __USBD_CONF__H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+#endif /* #ifdef VP_DIGI_ENABLE_USB */

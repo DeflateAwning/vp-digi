@@ -19,6 +19,8 @@
   */
 /* USER CODE END Header */
 
+#ifdef VP_DIGI_ENABLE_USB
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USBD_CDC_IF_H__
 #define __USBD_CDC_IF_H__
@@ -130,3 +132,5 @@ uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len);
 #endif /* __USBD_CDC_IF_H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+#endif /* #ifdef VP_DIGI_ENABLE_USB */

@@ -17,6 +17,8 @@
   ******************************************************************************
   */
 
+#ifdef VP_DIGI_ENABLE_USB
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USBD_DEF_H
 #define __USBD_DEF_H
@@ -346,3 +348,5 @@ typedef struct _USBD_HandleTypeDef
 * @}
 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+#endif /* #ifdef VP_DIGI_ENABLE_USB */

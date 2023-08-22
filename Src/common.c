@@ -205,6 +205,7 @@ void SendKiss(uint8_t *buf, uint16_t len)
 		u = &uart2;
 	}
 
+#ifdef VP_DIGI_ENABLE_USB
 	if(USBmode == MODE_KISS) //check if USB in KISS mode
 	{
 		uint8_t t[2] = {0xc0, 0};
@@ -219,4 +220,6 @@ void SendKiss(uint8_t *buf, uint16_t len)
 		}
 		CDC_Transmit_FS(&t[0], 1);
 	}
+#endif /* #ifdef VP_DIGI_ENABLE_USB */
+
 }

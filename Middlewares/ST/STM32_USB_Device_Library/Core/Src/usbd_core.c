@@ -17,6 +17,8 @@
   ******************************************************************************
   */
 
+#ifdef VP_DIGI_ENABLE_USB
+
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
 
@@ -608,4 +610,4 @@ USBD_StatusTypeDef USBD_LL_DevDisconnected(USBD_HandleTypeDef *pdev)
 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-
+#endif /* #ifdef VP_DIGI_ENABLE_USB */

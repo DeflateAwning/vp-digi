@@ -23,6 +23,8 @@ along with VP-Digi.  If not, see <http://www.gnu.org/licenses/>.
 #include "drivers/modem.h"
 #include "ax25.h"
 
+#include <stdlib.h> // abs()
+
 uint8_t termBuf[TERMBUFLEN]; //terminal mode TX buffer
 uint16_t termBufIdx = 0; //terminal mode TX buffer index
 
@@ -38,6 +40,7 @@ void term_handleSpecial(Terminal_stream src)
 {
 	if(src == TERM_USB)
 	{
+#ifdef VP_DIGI_ENABLE_USB
 		if(USBmode == MODE_KISS) //don't do anything in KISS mode
 		{
 			spLastIdx[0] = 0;
@@ -66,6 +69,8 @@ void term_handleSpecial(Terminal_stream src)
 				CDC_Transmit_FS((uint8_t*)"\r\n", 2);
 			spLastIdx[0] = t;
 		}
+#endif /* #ifdef VP_DIGI_ENABLE_USB */
+
 	}
 	else if((src == TERM_UART1) || (src == TERM_UART2))
 	{
