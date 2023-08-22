@@ -297,7 +297,7 @@ void term_parse(uint8_t *cmd, uint16_t len, Terminal_stream src, Uart_data_type 
 	if(checkcmd(cmd, 6, (uint8_t*)"config"))
 	{
 		term_sendString((uint8_t*)"Switched to configuration mode\r\n"
-				"Most settings will take effect immidiately, but\r\n"
+				"Most settings will take effect immediately, but\r\n"
 				"remember to save the configuration using \"save\"\r\n", 0);
 		if(src == TERM_USB)
 		{
